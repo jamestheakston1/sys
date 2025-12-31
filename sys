@@ -1,0 +1,146 @@
+#!/bin/bash
+
+COMMAND=$1
+SUBCOMMAND=$2
+
+case $COMMAND in
+  help)
+    echo "sys - The Ultimate macOS Utility"
+    echo ""
+    echo "Core Commands:"
+    echo "  sys about           General system info"
+    echo "  sys update          Check for updates (-install to apply)"
+    echo "  sys github          Open the source repo"
+    echo ""
+    echo "Hardware & Stats:"
+    echo "  sys cpu             Processor load and model"
+    echo "  sys battery         Health and charge status"
+    echo "  sys storage         Disk usage breakdown"
+    echo "  sys display         Resolution and GPU info"
+    echo "  sys hdmi            External connection details"
+    echo "  sys sensors         Fan speeds and thermal data (requires sudo)"
+    echo ""
+    echo "Network & Connectivity:"
+    echo "  sys ip              Show local and public IP addresses"
+    echo "  sys wifi            Show current SSID and link speed"
+    echo "  sys speedtest       Run a network speed test (native macOS tool)"
+    echo "  sys bluetooth       List connected Bluetooth devices"
+    echo ""
+    echo "Maintenance & Security:"
+    echo "  sys cleanup         Clear system logs and flush DNS cache"
+    echo "  sys processes       List top 10 memory-hungry apps"
+    echo "  sys kill [name]     Force quit an application by name"
+    echo "  sys hide            Hide all desktop icons"
+    echo "  sys show            Show all desktop icons"
+    echo "  sys lock            Immediately lock the screen"
+    ;;
+
+  about)
+    sw_vers
+    system_profiler SPHardwareDataType | grep "Model Name"
+    system_profiler SPHardwareDataType | grep "Processor Name"
+    ;;
+
+  update)
+    if [ "$SUBCOMMAND" == "install" ]; then
+        echo "Installing all available macOS updates..."
+        sudo softwareupdate -ia
+    else
+        echo "Checking for macOS updates..."
+        softwareupdate -l
+    fi
+    ;;
+
+  github)
+    open "https://github.com/jamestheakston1/sys"
+    ;;
+
+  ip)
+    echo "Local IP: $(ipconfig getifaddr en0)"
+    echo "Public IP: $(curl -s https://ifconfig.me)"
+    ;;
+
+  wifi)
+    
+/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport 
+-I | grep -E " SSID|lastTxRate"
+    ;;
+
+  speedtest)
+    networkquality
+    ;;
+
+  bluetooth)
+    system_profiler SPBluetoothDataType | grep -A 10 "Connected:"
+    ;;
+
+  cleanup)
+    echo "Cleaning system..."
+    sudo dscacheutil -flushcache
+    sudo killall -HUP mDNSResponder
+    echo "DNS Flushed."
+    rm -rf ~/Library/Caches/*
+    echo "User caches cleared."
+    ;;
+
+  processes)
+    ps -Ao pcpu,pmem,comm -r | head -n 11
+    ;;
+
+  kill)
+    if [ -z "$SUBCOMMAND" ]; then
+        echo "Usage: sys kill [app_name]"
+    else
+        sudo killall "$SUBCOMMAND" && echo "$SUBCOMMAND terminated."
+    fi
+    ;;
+
+  storage)
+    df -h | grep "Filesystem\|[/]$"
+    ;;
+
+  cpu)
+    sysctl -n machdep.cpu.brand_string
+    top -l 1 | grep "CPU usage"
+    ;;
+
+  battery)
+    pmset -g batt
+    system_profiler SPPowerDataType | grep "Cycle Count"
+    ;;
+
+  display)
+    system_profiler SPDisplaysDataType | grep "Resolution\|Main Display\|Mirror"
+    ;;
+
+  hdmi)
+    system_profiler SPDisplaysDataType | grep -A 10 "DisplayConnector"
+    ;;
+
+  hide)
+    defaults write com.apple.finder CreateDesktop false
+    killall Finder
+    ;;
+
+  show)
+    defaults write com.apple.finder CreateDesktop true
+    killall Finder
+    ;;
+
+  lock)
+    pmset displaysleepnow
+    ;;
+
+  sensors)
+    sudo powermetrics --samplers smc -i 1 -n 1 | grep -i "fan\|die"
+    ;;
+
+  "")
+    echo "Try adding a command after sys. Type sys help for all commands."
+    ;;
+
+  *)
+    echo "Unknown command: $COMMAND"
+    echo "Type sys help for available commands."
+    ;;
+esac
