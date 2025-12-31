@@ -10,16 +10,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
-        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
         @keyframes cursor { 50% { opacity: 0; } }
         .cursor::after { content: '_'; animation: cursor 1s infinite; }
     </style>
 </head>
 <body class="bg-[#0A0A0B] text-zinc-100 selection:bg-indigo-500/30">
-
     <nav class="sticky top-0 z-50 bg-[#0A0A0B]/80 backdrop-blur-md border-b border-zinc-900 px-6 py-4">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2 group cursor-default">
@@ -33,7 +30,6 @@
             </a>
         </div>
     </nav>
-
     <header class="max-w-6xl mx-auto px-6 pt-24 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <div>
             <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full text-indigo-400 text-xs font-bold mb-6">
@@ -43,25 +39,17 @@
                 </span>
                 v1.0 NOW LIVE
             </div>
-            <h1 class="text-6xl font-[800] leading-[1.1] tracking-tight mb-6">
-                Your Mac, <br/><span class="text-indigo-500">Accelerated.</span>
-            </h1>
-            <p class="text-zinc-400 text-lg leading-relaxed mb-10 max-w-md">
-                One word. Total control. The lightweight CLI that gives you instant access to hardware stats, network tools, and system maintenance.
-            </p>
-            
+            <h1 class="text-6xl font-[800] leading-[1.1] tracking-tight mb-6">Your Mac, <br/><span class="text-indigo-500">Accelerated.</span></h1>
+            <p class="text-zinc-400 text-lg leading-relaxed mb-10 max-w-md">One word. Total control. The lightweight CLI that gives you instant access to hardware stats, network tools, and system maintenance.</p>
             <div class="bg-zinc-900/40 border border-zinc-800 p-4 rounded-2xl">
                 <div class="flex items-start justify-between gap-4">
-                    <code id="install-cmd" class="mono text-indigo-300 text-[13px] leading-relaxed break-all">
-                        sudo curl -sSL https://raw.githubusercontent.com/jamestheakston1/sys/main/sys -o /usr/local/bin/sys && sudo chmod +x /usr/local/bin/sys && echo "✅ sys installed successfully!"
-                    </code>
-                    <button onclick="copyInstall()" class="hover:text-indigo-400 transition-colors pt-1">
+                    <code id="install-cmd" class="mono text-indigo-300 text-[13px] leading-relaxed break-all">sudo curl -sSL https://raw.githubusercontent.com/jamestheakston1/sys/main/sys -o /usr/local/bin/sys && sudo chmod +x /usr/local/bin/sys && echo "✅ sys installed successfully!"</code>
+                    <button onclick="copyInstall()" class="hover:text-indigo-400 transition-colors pt-1 flex-shrink-0">
                         <i data-feather="copy" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
         </div>
-
         <div class="relative group">
             <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
             <div class="relative bg-black rounded-xl border border-zinc-800 shadow-2xl overflow-hidden">
@@ -89,7 +77,6 @@
             </div>
         </div>
     </header>
-
     <section class="max-w-6xl mx-auto px-6 py-24">
         <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4">
             <div class="md:col-span-2 md:row-span-2 bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem] flex flex-col justify-between hover:bg-zinc-900/50 transition-all">
@@ -105,9 +92,8 @@
                     <div class="bg-black/40 border border-zinc-800 p-3 rounded-xl text-xs mono text-zinc-500">sys display</div>
                 </div>
             </div>
-
             <div class="md:col-span-2 bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem] flex items-center gap-6">
-                <div class="bg-cyan-500/10 p-4 rounded-2xl">
+                <div class="bg-cyan-500/10 p-4 rounded-2xl flex-shrink-0">
                     <i data-feather="globe" class="text-cyan-500"></i>
                 </div>
                 <div>
@@ -115,13 +101,11 @@
                     <p class="text-zinc-500 text-sm">Public IP, Wifi strength, and speedtests.</p>
                 </div>
             </div>
-
             <div class="bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem]">
                 <i data-feather="shield" class="text-emerald-500 mb-4"></i>
                 <h4 class="font-bold text-sm mb-1 text-emerald-500">Security</h4>
                 <p class="text-zinc-500 text-xs">Cleanup & Screen Locks</p>
             </div>
-
             <div class="bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem]">
                 <i data-feather="trash-2" class="text-red-500 mb-4"></i>
                 <h4 class="font-bold text-sm mb-1 text-red-500">Uninstall</h4>
@@ -129,7 +113,25 @@
             </div>
         </div>
     </section>
-
+    <section class="max-w-6xl mx-auto px-6 pb-24">
+        <div class="bg-zinc-900/20 border border-zinc-800 rounded-[2.5rem] p-10 backdrop-blur-sm">
+            <h2 class="text-3xl font-extrabold mb-8 tracking-tight text-center md:text-left">Requirements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-indigo-400 font-bold"><i data-feather="monitor" class="w-4 h-4"></i> OS Version</div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Most commands require High Sierra (10.13+). Speedtest requires Monterey (12.0+).</p>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-indigo-400 font-bold"><i data-feather="cpu" class="w-4 h-4"></i> Architecture</div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Full support for Intel and Apple Silicon (M1, M2, M3, M4) processors.</p>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 text-indigo-400 font-bold"><i data-feather="terminal" class="w-4 h-4"></i> Shell</div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">Designed and tested for Zsh (default) and Bash environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-500 text-sm">
         <p>© 2026 James Theakston. Built for power users.</p>
         <div class="flex gap-8">
@@ -137,20 +139,15 @@
             <a href="https://github.com/jamestheakston1/sys/blob/main/sys" class="hover:text-white transition-colors">Source Code</a>
         </div>
     </footer>
-
     <script>
         feather.replace();
-
         function copyInstall() {
             const text = document.getElementById('install-cmd').innerText;
             navigator.clipboard.writeText(text);
-            
-            // Visual feedback
             const btn = event.currentTarget;
             const originalIcon = btn.innerHTML;
             btn.innerHTML = '<i data-feather="check" class="w-5 h-5 text-emerald-400"></i>';
             feather.replace();
-            
             setTimeout(() => {
                 btn.innerHTML = originalIcon;
                 feather.replace();
