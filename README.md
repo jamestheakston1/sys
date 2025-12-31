@@ -11,4 +11,4 @@
 Open your terminal and paste the following command. This will download the script, move it to your local binaries, and make it executable:
 
 ```bash
-sudo curl -sSL [https://raw.githubusercontent.com/jamestheakston1/sys/main/sys](https://raw.githubusercontent.com/jamestheakston1/sys/main/sys) -o /usr/local/bin/sys && sudo chmod +x /usr/local/bin/sys && echo "\033[1;32m✅ sys installed successfully! Type 'sys help' to get started.\033[0m"
+sudo curl -sSL https://raw.githubusercontent.com/jamestheakston1/sys/main/sys -o /usr/local/bin/sys && sudo chmod +x /usr/local/bin/sys && echo "✅ sys installed successfully! Type 'sys help' to get started."
