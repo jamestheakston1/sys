@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sys | The macOS Swiss Army Knife</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes cursor { 50% { opacity: 0; } }
+        .cursor::after { content: '_'; animation: cursor 1s infinite; }
+    </style>
+</head>
+<body class="bg-[#0A0A0B] text-zinc-100 selection:bg-indigo-500/30">
+
+    <nav class="sticky top-0 z-50 bg-[#0A0A0B]/80 backdrop-blur-md border-b border-zinc-900 px-6 py-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2 group cursor-default">
+                <div class="bg-indigo-600 p-1.5 rounded-md shadow-[0_0_15px_rgba(79,70,229,0.4)]">
+                    <i data-feather="terminal" class="w-4 h-4 text-white"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tight">sys</span>
+            </div>
+            <a href="https://github.com/jamestheakston1/sys" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2">
+                <i data-feather="github" class="w-4 h-4"></i> Star on GitHub
+            </a>
+        </div>
+    </nav>
+
+    <header class="max-w-6xl mx-auto px-6 pt-24 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+            <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full text-indigo-400 text-xs font-bold mb-6">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                v2.0 NOW LIVE
+            </div>
+            <h1 class="text-6xl font-[800] leading-[1.1] tracking-tight mb-6">
+                Your Mac, <br/><span class="text-indigo-500">Accelerated.</span>
+            </h1>
+            <p class="text-zinc-400 text-lg leading-relaxed mb-10 max-w-md">
+                One word. Total control. The lightweight CLI that gives you instant access to hardware stats, network tools, and system maintenance.
+            </p>
+            
+            <div class="bg-zinc-900/40 border border-zinc-800 p-4 rounded-2xl">
+                <div class="flex items-start justify-between gap-4">
+                    <code id="install-cmd" class="mono text-indigo-300 text-[13px] leading-relaxed break-all">
+                        sudo curl -sSL https://raw.githubusercontent.com/jamestheakston1/sys/main/sys -o /usr/local/bin/sys && sudo chmod +x /usr/local/bin/sys && echo "✅ sys installed successfully!"
+                    </code>
+                    <button onclick="copyInstall()" class="hover:text-indigo-400 transition-colors pt-1">
+                        <i data-feather="copy" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+            <div class="relative bg-black rounded-xl border border-zinc-800 shadow-2xl overflow-hidden">
+                <div class="bg-zinc-900/50 px-4 py-3 border-b border-zinc-800 flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+                    <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+                    <span class="ml-2 text-[10px] mono text-zinc-500 tracking-widest uppercase">zsh — 80×24</span>
+                </div>
+                <div class="p-6 mono text-sm leading-relaxed min-h-[300px]">
+                    <div class="mb-4">
+                        <span class="text-emerald-400">jamess-mac %</span> <span class="text-white cursor">sys battery</span>
+                    </div>
+                    <div class="text-zinc-400 space-y-1">
+                        <p>Now drawing from 'Battery Power'</p>
+                        <p> -InternalBattery-0 94%; discharging; 8:42 remaining</p>
+                        <p class="text-emerald-500/80">Cycle Count: 42</p>
+                        <p class="text-emerald-500/80">Condition: Normal</p>
+                    </div>
+                    <div class="mt-6">
+                        <span class="text-emerald-400">jamess-mac %</span> <span class="text-white">sys speedtest</span>
+                    </div>
+                    <div class="text-zinc-400 mt-2 italic">Checking network quality...</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="max-w-6xl mx-auto px-6 py-24">
+        <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4">
+            <div class="md:col-span-2 md:row-span-2 bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem] flex flex-col justify-between hover:bg-zinc-900/50 transition-all">
+                <div>
+                    <div class="bg-indigo-500/10 w-12 h-12 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-feather="zap" class="text-indigo-500"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Hardware Insights</h3>
+                    <p class="text-zinc-400 leading-relaxed">Deep dive into your Mac's internals. Monitor CPU frequency, GPU resolution, thermal sensors, and battery health with zero lag.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-8">
+                    <div class="bg-black/40 border border-zinc-800 p-3 rounded-xl text-xs mono text-zinc-500">sys cpu</div>
+                    <div class="bg-black/40 border border-zinc-800 p-3 rounded-xl text-xs mono text-zinc-500">sys display</div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem] flex items-center gap-6">
+                <div class="bg-cyan-500/10 p-4 rounded-2xl">
+                    <i data-feather="globe" class="text-cyan-500"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg leading-none mb-2">Network Pro</h3>
+                    <p class="text-zinc-500 text-sm">Public IP, Wifi strength, and speedtests.</p>
+                </div>
+            </div>
+
+            <div class="bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem]">
+                <i data-feather="shield" class="text-emerald-500 mb-4"></i>
+                <h4 class="font-bold text-sm mb-1 text-emerald-500">Security</h4>
+                <p class="text-zinc-500 text-xs">Cleanup & Screen Locks</p>
+            </div>
+
+            <div class="bg-zinc-900/30 border border-zinc-800/50 p-8 rounded-[2.5rem]">
+                <i data-feather="trash-2" class="text-red-500 mb-4"></i>
+                <h4 class="font-bold text-sm mb-1 text-red-500">Uninstall</h4>
+                <p class="text-zinc-500 text-xs">Zero-trace removal</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="max-w-6xl mx-auto px-6 py-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-zinc-500 text-sm">
+        <p>© 2026 James Theakston. Built for power users.</p>
+        <div class="flex gap-8">
+            <a href="https://github.com/jamestheakston1/sys/discussions" class="hover:text-white transition-colors">Documentation</a>
+            <a href="https://github.com/jamestheakston1/sys/blob/main/sys" class="hover:text-white transition-colors">Source Code</a>
+        </div>
+    </footer>
+
+    <script>
+        feather.replace();
+
+        function copyInstall() {
+            const text = document.getElementById('install-cmd').innerText;
+            navigator.clipboard.writeText(text);
+            
+            // Visual feedback
+            const btn = event.currentTarget;
+            const originalIcon = btn.innerHTML;
+            btn.innerHTML = '<i data-feather="check" class="w-5 h-5 text-emerald-400"></i>';
+            feather.replace();
+            
+            setTimeout(() => {
+                btn.innerHTML = originalIcon;
+                feather.replace();
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
