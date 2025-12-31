@@ -11,6 +11,7 @@ case $COMMAND in
     echo "  sys about           General system info"
     echo "  sys update          Check for updates (-install to apply)"
     echo "  sys github          Open the source repo"
+    echo "  sys uninstall       Remove sys from your system"
     echo ""
     echo "Hardware & Stats:"
     echo "  sys cpu             Processor load and model"
@@ -33,6 +34,15 @@ case $COMMAND in
     echo "  sys hide            Hide all desktop icons"
     echo "  sys show            Show all desktop icons"
     echo "  sys lock            Immediately lock the screen"
+    ;;
+
+  uninstall)
+    read -p "Are you sure you want to uninstall sys? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        sudo rm /usr/local/bin/sys
+        echo "✅ sys has been uninstalled."
+    fi
     ;;
 
   about)
@@ -61,9 +71,7 @@ case $COMMAND in
     ;;
 
   wifi)
-    
-/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport 
--I | grep -E " SSID|lastTxRate"
+    /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | grep -E " SSID|lastTxRate"
     ;;
 
   speedtest)
